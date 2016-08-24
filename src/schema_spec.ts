@@ -136,4 +136,19 @@ describe('createServer', () => {
     expect(options['A']).to.equal(true);
     expect(options['B']).to.equal(true);
   });
+
+  it('can provide cistom schema', () => {
+    init();
+    const schema: IApolloModule = {
+      schema: '',
+      queryText: 'getA: String',
+      modifyOptions: (req: any, options: any) => { options.A = true; return options; }
+    };
+    const modules = addModules([schema]);
+    const customSchema = {};
+    const optionModifier = createServer({ rootValue: 1, modules }, customSchema);
+    const options = optionModifier();
+
+    expect(options.schema).to.equal(customSchema);
+  });
 });

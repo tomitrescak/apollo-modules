@@ -7,7 +7,7 @@
     "build": "tsc",
     "test": "mocha src/*spec.ts --compilers ts:ts-node/register",
     "coverage": "istanbul cover _mocha -- --compilers js:babel-core/register \"dist/*_spec.js\" -R spec --timeout 3000",
-    "coveralls": "istanbul cover _mocha --report lcovonly -- --compilers js:babel-core/register \"dist/**/*.spec.js\" -R spec --timeout 3000 && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "coveralls": "istanbul cover _mocha --report lcovonly -- --compilers js:babel-core/register \"dist/*_spec.js\" -R spec --timeout 3000 && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "keywords": [
     "Apollo",

@@ -12,7 +12,7 @@ interface ApolloOptions {
   formatResponse?: Function; // function applied to each response before returning data to clients
   modules: {
     schema: any[];
-    resolver: any;
+    resolvers: any;
     options: any[];
   };
 };
@@ -45,7 +45,7 @@ export function addModules(apolloDefinitions: IApolloModule[]) {
   let options: IApolloOption[] = [];
 
   let schema: any[] = [];
-  let resolver: any = {
+  let resolvers: any = {
   };
 
   for (let apolloDefinition of apolloDefinitions) {
@@ -58,21 +58,21 @@ export function addModules(apolloDefinitions: IApolloModule[]) {
     }
 
     if (apolloDefinition.queries) {
-      if (!resolver['RootQuery']) {
-        resolver['RootQuery'] = {};
+      if (!resolvers['RootQuery']) {
+        resolvers['RootQuery'] = {};
       }
-      Object.assign(resolver['RootQuery'], apolloDefinition.queries);
+      Object.assign(resolvers['RootQuery'], apolloDefinition.queries);
     }
 
     if (apolloDefinition.mutations) {
-      if (!resolver['RootMutation']) {
-        resolver['RootMutation'] = {};
+      if (!resolvers['RootMutation']) {
+        resolvers['RootMutation'] = {};
       }
-      Object.assign(resolver['RootMutation'], apolloDefinition.mutations);
+      Object.assign(resolvers['RootMutation'], apolloDefinition.mutations);
     }
 
     if (apolloDefinition.resolvers) {
-      Object.assign(resolver, apolloDefinition.resolvers);
+      Object.assign(resolvers, apolloDefinition.resolvers);
     }
 
     if (apolloDefinition.queryText) {
@@ -112,15 +112,13 @@ export function addModules(apolloDefinitions: IApolloModule[]) {
 
   return {
     schema,
-    resolver,
+    resolvers,
     options
   };
 }
 
-export function createServer(apolloOptions?: ApolloOptions, executableSchema?: any) {
-  const { schema, resolver, options } = apolloOptions.modules;
-
-  apolloOptions.schema = executableSchema ? executableSchema : makeExecutableSchema({ typeDefs: schema, resolvers: resolver });
+export function createServer(apolloOptions?: ApolloOptions) {
+  const { schema, resolvers, options } = apolloOptions.modules;
 
   return function (req?: any) {
     // process all option modifiers

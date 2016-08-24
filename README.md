@@ -18,14 +18,35 @@ declare interface IApolloQueryDefinition {
   resolvers?: Object;
   mutationText?: string;
   mutations?: Object;
-  modifyOptions?: (req: any, apolloOptions: ApolloOptions) => ApolloOptions
+  // allows you to modify apollo Options (e.g. context) based on current request
+  modifyOptions?: (req: any, apolloOptions: ApolloOptions) => void 
 }
 ```
 
 Please see the section **Examples** examples on how to use the [domain element schema](#schema) and also how to use server helpers:
 
 1. `addModules(definition: IApolloQueryDefinition[]): void`: compiles schema of several domain elements (Example: [Generating schemas](#generation))
-2. `createServer(apolloOptions?: ApolloOptions, executableSchema?: any): (req: any) => IApolloOptions`
+2. `createServer(apolloOptions?: ApolloOptions, executableSchema?: any): (req: any) => IApolloOptions` provides easy initialisation of the Apollo server.
+  
+  ```ts
+  import dateModule from 'apollo-modules-date';
+  import myModule from './myApolloModule';
+  import { createServer, addModules } from 'apollo-modules';
+
+  const modules = addModules([ dateModule, myModule ]);
+  const schema = makeExecutableSchema({ typeDefs: modules.schema, resolvers: modules.resolvers });
+
+  const graphqlOptions = {
+    context,
+    modules, // this needs to be there if you use options
+    schema
+  };
+
+  // init express
+  const app = ....
+  app.use('/graphql', apollo.apolloExpress(createServer(graphqlOptions)));
+  ```
+
 3. `ioSchema`: generates your defined schema type as both input and ouput type. This is used, when you want to be sending whole documents to GraphQL server and probably is not the best practice. When defining the IO type all you need to do is to append the $Input after the type name. (Example: [Advanced Schema](#ioschema))
 
 
@@ -54,6 +75,11 @@ const queryText = `
   practical(id: String, userId: String): Practical
 `;
 
+const modifyOptions = (req: any, apolloOptions: ApolloOptions) {
+  // modify context
+  apolloOptions.context.myValue = "NewValue";
+}
+
 const queries = {
   practical(root: any, { id }: any, { userId }: Apollo.IApolloContext): Cs.Collections.IPracticalDAO {
     if (!userId) {
@@ -75,7 +101,8 @@ const definition: IApolloDefinition = {
   schema,
   resolvers,
   queries,
-  queryText
+  queryText,
+  modifyOptions
 };
 
 export default definition;

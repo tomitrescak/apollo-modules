@@ -44,9 +44,9 @@ describe('create schema', () => {
       }
     };
     const result = addModules([schema]);
-    expect(result.resolver.RootQuery).to.exist;
-    expect(result.resolver.RootQuery.query_1).to.exist;
-    expect(result.resolver.RootMutation).not.to.exist;
+    expect(result.resolvers.RootQuery).to.exist;
+    expect(result.resolvers.RootQuery.query_1).to.exist;
+    expect(result.resolvers.RootMutation).not.to.exist;
   });
 
   it('adds mutation text', () => {
@@ -70,9 +70,9 @@ describe('create schema', () => {
       }
     };
     const result = addModules([schema]);
-    expect(result.resolver.RootQuery).not.to.exist;
-    expect(result.resolver.RootMutation).to.exist;
-    expect(result.resolver.RootMutation.mutation_1).to.exist;
+    expect(result.resolvers.RootQuery).not.to.exist;
+    expect(result.resolvers.RootMutation).to.exist;
+    expect(result.resolvers.RootMutation.mutation_1).to.exist;
   });
 
   it('adds resolvers', () => {
@@ -83,9 +83,9 @@ describe('create schema', () => {
       }
     };
     const result = addModules([schema]);
-    expect(result.resolver.RootQuery).not.to.exist;
-    expect(result.resolver.RootMutation).not.to.exist;
-    expect(result.resolver.resolver_1).to.exist;
+    expect(result.resolvers.RootQuery).not.to.exist;
+    expect(result.resolvers.RootMutation).not.to.exist;
+    expect(result.resolvers.resolver_1).to.exist;
   });
 });
 
@@ -101,7 +101,6 @@ describe('createServer', () => {
     const options = optionModifier();
 
     expect(options.rootValue).to.equal(1);
-    expect(options.schema).to.exist;
   });
 
   it('processes options request', () => {
@@ -136,20 +135,5 @@ describe('createServer', () => {
 
     expect(options['A']).to.equal(true);
     expect(options['B']).to.equal(true);
-  });
-
-  it('can provide cistom schema', () => {
-    init();
-    const schema: IApolloModule = {
-      schema: '',
-      queryText: 'getA: String',
-      modifyOptions: (req: any, options: any) => { options.A = true; return options; }
-    };
-    const modules = addModules([schema]);
-    const customSchema = {};
-    const optionModifier = createServer({ rootValue: 1, modules }, customSchema);
-    const options = optionModifier();
-
-    expect(options.schema).to.equal(customSchema);
   });
 });

@@ -8,10 +8,11 @@ describe('create schema', () => {
   it('adds options text', () => {
     const schema: IApolloModule = {
       schema: '',
-      modifyOptions: (req: any, options: any) => { return null; }
+      modifyOptions: (req: any, options: any) => null
     };
     const result = addModules([schema]);
     expect(result.options.length).to.equal(1);
+    expect(result.options[0](null, null)).to.be.null;
   });
 
   it('adds schema text', () => {

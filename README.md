@@ -2,7 +2,7 @@
 
 This set of helpers facilitates the use of GraphQL and Apollo, it allows you to define schemas splits based on domain elements (queries, mutations, resolvers)
 
-[![npm](https://img.shields.io/npm/v/apollo-modules.svg?maxAge=2592000)](https://www.npmjs.com/package/apollo-modules) 
+[![npm](https://img.shields.io/npm/v/apollo-modules.svg?maxAge=1000)](https://www.npmjs.com/package/apollo-modules) 
 [![Circle CI](https://circleci.com/gh/tomitrescak/apollo-modules.svg?style=shield)](https://circleci.com/gh/tomitrescak/apollo-modules) 
 [![Coverage Status](https://coveralls.io/repos/github/tomitrescak/apollo-modules/badge.svg?branch=master)](https://coveralls.io/github/tomitrescak/apollo-modules?branch=master) 
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)

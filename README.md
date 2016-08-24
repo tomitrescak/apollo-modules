@@ -1,4 +1,4 @@
-# Apollo and Redux Tools
+# Apollo Modules
 
 This set of helpers facilitates the use of GraphQL and Apollo, it allows you to define schemas splits based on domain elements (queries, mutations, resolvers)
 

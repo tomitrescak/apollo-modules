@@ -2,6 +2,9 @@
   "name": "apollo-modules",
   "version": "0.0.3",
   "description": "Modular system for building apollo schemas",
+  "repository": {
+    "url": "https://github.com/tomitrescak/apollo-modules"
+  },
   "main": "index.js",
   "scripts": {
     "build": "tsc",

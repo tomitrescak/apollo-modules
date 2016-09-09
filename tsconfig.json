@@ -14,7 +14,7 @@
     "experimentalDecorators": true,
     "sourceMap": false,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "moduleResolution": "classic"
   },
   "filesGlob": [
     "../typings/**/*.ts",

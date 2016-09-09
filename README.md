@@ -10,13 +10,25 @@ This set of helpers facilitates the use of GraphQL and Apollo, it allows you to 
 
 # Server
 
+This package allows for modular definition of GraphQL schema. 
+Modular definition can reflect the strucutre of your **Domain Elements**.
+The advantage of this approach is that you can keep your queries and mutations 
+close to your domain element.
+A graphQL module contains following properties:
+
 ```typescript
-declare interface IApolloQueryDefinition {
+declare interface ApolloModule {
+  // definition of types 
   schema: string;
+  // definition of queries
   queryText?: string;
+  // implementation of queries
   queries?: Object;
+  // implementation of type resolvers
   resolvers?: Object;
+  // definition of mutations
   mutationText?: string;
+  // implmentation of mutations
   mutations?: Object;
   // allows you to modify apollo Options (e.g. context) based on current request
   modifyOptions?: (req: any, apolloOptions: ApolloOptions) => void 
@@ -24,6 +36,28 @@ declare interface IApolloQueryDefinition {
 ```
 
 Please see the section **Examples** examples on how to use the [domain element schema](#schema) and also how to use server helpers:
+
+To use modules in your code you need to do following:
+
+```javascript
+import { addModules } from 'apollo-modules';
+import { makeExecutableSchema } from 'graphql-tools';
+import myModule from './my_module'; 
+
+// import all your modules
+const modules = addModules([
+  myModule,
+  ...
+];
+
+// build your schema
+const schema = makeExecutableSchema({ typeDefs: modules.schema, resolvers: modules.resolvers, allowUndefinedInResolve: true });
+
+// init your apollo server as usual
+...
+```
+
+Following are the availabel methods from this package.
 
 1. `addModules(definition: IApolloQueryDefinition[]): void`: compiles schema of several domain elements (Example: [Generating schemas](#generation))
 2. `createServer(apolloOptions?: ApolloOptions, executableSchema?: any): (req: any) => IApolloOptions` provides easy initialisation of the Apollo server.
@@ -59,6 +93,8 @@ app.use('/graphql', apollo.apolloExpress(createServer(graphqlOptions)));
 
 
 ## Simple schema<a name="schema" id="schema"></a>
+
+In this example we initialise a simple schema that modifies the context upon each request.
 
 ```typescript
 import { Mongo } from 'meteor/mongo';

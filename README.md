@@ -70,7 +70,7 @@ List of examples of common uses of our helpers
 
 ## Creating apollo server
 
-In this example we load several mosules and initialise a new server instance
+In this example we load several modules and initialise a new server instance
 
 ```ts
 import dateModule from 'apollo-modules-date';

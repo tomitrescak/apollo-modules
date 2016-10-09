@@ -57,7 +57,7 @@ const schema = makeExecutableSchema({ typeDefs: modules.schema, resolvers: modul
 ...
 ```
 
-Following are the availabel methods from this package.
+Following are the available methods from this package.
 
 1. `addModules(definition: IApolloQueryDefinition[]): void`: compiles schema of several domain elements (Example: [Generating schemas](#generation))
 2. `createServer(apolloOptions?: ApolloOptions, executableSchema?: any): (req: any) => IApolloOptions` provides easy initialisation of the Apollo server.

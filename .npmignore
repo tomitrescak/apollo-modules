@@ -1,1 +1,12 @@
 src
+wallaby.js
+tsconfig.json
+.coveralls.yml
+circle.yml
+setup.js
+.npmignore
+.gitignore
+node_modules
+coverage
+.vscode
+./tests

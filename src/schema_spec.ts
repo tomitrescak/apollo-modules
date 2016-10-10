@@ -21,7 +21,7 @@ describe('create schema', () => {
     };
     const result = addModules([schema]);
     expect(result.schema[0]).to.equal('schemaText');
-    expect(result.schema[1]).to.match(/type RootQuery {\W*}/);
+    expect(result.schema[1]).to.match(/type Query {\W*}/);
   });
 
   it('adds query text', () => {
@@ -30,10 +30,8 @@ describe('create schema', () => {
       queryText: 'query'
     };
     const result = addModules([schema]);
-    expect(result.schema.length).to.equal(2);
-    expect(result.schema[0]).to.match(/type RootQuery {\W*query/);
-    expect(result.schema[1]).to.match(/query: RootQuery/);
-    expect(result.schema[1]).not.to.match(/mutation: RootMutation/);
+    expect(result.schema.length).to.equal(1);
+    expect(result.schema[0]).to.match(/type Query {\W*query/);
   });
 
   it('adds queries', () => {
@@ -44,9 +42,9 @@ describe('create schema', () => {
       }
     };
     const result = addModules([schema]);
-    expect(result.resolvers.RootQuery).to.exist;
-    expect(result.resolvers.RootQuery.query_1).to.exist;
-    expect(result.resolvers.RootMutation).not.to.exist;
+    expect(result.resolvers.Query).to.exist;
+    expect(result.resolvers.Query.query_1).to.exist;
+    expect(result.resolvers.Mutation).not.to.exist;
   });
 
   it('adds mutation text', () => {
@@ -55,11 +53,9 @@ describe('create schema', () => {
       mutationText: 'mutation'
     };
     const result = addModules([schema]);
-    expect(result.schema.length).to.equal(3);
-    expect(result.schema[0]).to.match(/type RootQuery {\W*}/);
-    expect(result.schema[1]).to.match(/type RootMutation {\W*mutation/);
-    expect(result.schema[2]).to.match(/query: RootQuery/);
-    expect(result.schema[2]).to.match(/mutation: RootMutation/);
+    expect(result.schema.length).to.equal(2);
+    expect(result.schema[0]).to.match(/type Query {\W*}/);
+    expect(result.schema[1]).to.match(/type Mutation {\W*mutation/);
   });
 
   it('adds mutations', () => {
@@ -70,9 +66,9 @@ describe('create schema', () => {
       }
     };
     const result = addModules([schema]);
-    expect(result.resolvers.RootQuery).not.to.exist;
-    expect(result.resolvers.RootMutation).to.exist;
-    expect(result.resolvers.RootMutation.mutation_1).to.exist;
+    expect(result.resolvers.Query).not.to.exist;
+    expect(result.resolvers.Mutation).to.exist;
+    expect(result.resolvers.Mutation.mutation_1).to.exist;
   });
 
   it('adds resolvers', () => {
@@ -83,8 +79,8 @@ describe('create schema', () => {
       }
     };
     const result = addModules([schema]);
-    expect(result.resolvers.RootQuery).not.to.exist;
-    expect(result.resolvers.RootMutation).not.to.exist;
+    expect(result.resolvers.Query).not.to.exist;
+    expect(result.resolvers.Mutation).not.to.exist;
     expect(result.resolvers.resolver_1).to.exist;
   });
 });

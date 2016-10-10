@@ -1,5 +1,3 @@
-import { makeExecutableSchema } from 'graphql-tools';
-
 import './polyfills';
 
 interface ApolloOptions {
@@ -58,17 +56,17 @@ export function addModules(apolloDefinitions: IApolloModule[]) {
     }
 
     if (apolloDefinition.queries) {
-      if (!resolvers['RootQuery']) {
-        resolvers['RootQuery'] = {};
+      if (!resolvers['Query']) {
+        resolvers['Query'] = {};
       }
-      Object.assign(resolvers['RootQuery'], apolloDefinition.queries);
+      Object.assign(resolvers['Query'], apolloDefinition.queries);
     }
 
     if (apolloDefinition.mutations) {
-      if (!resolvers['RootMutation']) {
-        resolvers['RootMutation'] = {};
+      if (!resolvers['Mutation']) {
+        resolvers['Mutation'] = {};
       }
-      Object.assign(resolvers['RootMutation'], apolloDefinition.mutations);
+      Object.assign(resolvers['Mutation'], apolloDefinition.mutations);
     }
 
     if (apolloDefinition.resolvers) {
@@ -87,7 +85,7 @@ export function addModules(apolloDefinitions: IApolloModule[]) {
   // add all the queries and mutations
 
   queries = `
-    type RootQuery {
+    type Query {
       ${queries}
     }
     `;
@@ -96,19 +94,12 @@ export function addModules(apolloDefinitions: IApolloModule[]) {
 
   if (mutations) {
     mutations = `
-    type RootMutation {
+    type Mutation {
       ${mutations}
     }
     `;
     schema.push(mutations);
   }
-
-  schema.push(`
-    schema {
-      ${queries ? 'query: RootQuery' : ''}
-      ${mutations ? 'mutation: RootMutation' : ''}
-    }
-  `);
 
   return {
     schema,

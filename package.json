@@ -9,8 +9,6 @@
   "scripts": {
     "build": "tsc",
     "test": "mocha --report lcovonly src/*spec.ts --compilers ts:ts-node/register --bail",
-    "coverage": "istanbul cover _mocha -- --compilers js:babel-core/register \"dist/*_spec.js\" -R spec --timeout 3000",
-    "coveralls_with_js": "istanbul cover _mocha --report lcovonly -- --compilers js:babel-core/register \"dist/*_spec.js\" -R spec --timeout 3000 && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "coveralls": "NODE_ENV=test nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
@@ -21,7 +19,6 @@
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.13.2",
-    "chai": "^3.5.0",
     "graphql": "^0.6.2",
     "graphql-tools": "^0.6.4"
   },
@@ -52,6 +49,6 @@
     "reporter": [
       "text-lcov"
     ],
-    "all": true
+    "all": false
   }
 }

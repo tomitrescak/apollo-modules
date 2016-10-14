@@ -18,6 +18,7 @@
   "author": "Tomi Trescak",
   "license": "MIT",
   "dependencies": {
+    "graphql": "^0.7.2",
     "graphql-tools": "^0.7.2"
   },
   "types": "./dist/index.d.ts",

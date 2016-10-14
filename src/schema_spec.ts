@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 
-import { addModules, createServer, init, IApolloModule } from './schema';
+import { addModules, createServer, init, ApolloModule } from './schema';
 
 describe('create schema', () => {
   beforeEach(() => { init(); });
 
   it('adds options text', () => {
-    const schema: IApolloModule = {
+    const schema: ApolloModule = {
       schema: '',
       modifyOptions: (req: any, options: any) => null
     };
@@ -16,7 +16,7 @@ describe('create schema', () => {
   });
 
   it('adds schema text', () => {
-    const schema: IApolloModule = {
+    const schema: ApolloModule = {
       schema: 'schemaText'
     };
     const result = addModules([schema]);
@@ -25,7 +25,7 @@ describe('create schema', () => {
   });
 
   it('adds query text', () => {
-    const schema: IApolloModule = {
+    const schema: ApolloModule = {
       schema: '',
       queryText: 'query'
     };
@@ -35,7 +35,7 @@ describe('create schema', () => {
   });
 
   it('adds queries', () => {
-    const schema: IApolloModule = {
+    const schema: ApolloModule = {
       schema: '',
       queries: {
         query_1() { /* */ }
@@ -48,7 +48,7 @@ describe('create schema', () => {
   });
 
   it('adds mutation text', () => {
-    const schema: IApolloModule = {
+    const schema: ApolloModule = {
       schema: '',
       mutationText: 'mutation'
     };
@@ -59,7 +59,7 @@ describe('create schema', () => {
   });
 
   it('adds mutations', () => {
-    const schema: IApolloModule = {
+    const schema: ApolloModule = {
       schema: '',
       mutations: {
         mutation_1() {/* */ }
@@ -72,7 +72,7 @@ describe('create schema', () => {
   });
 
   it('adds resolvers', () => {
-    const schema: IApolloModule = {
+    const schema: ApolloModule = {
       schema: '',
       resolvers: {
         resolver_1() { /* */ }
@@ -88,7 +88,7 @@ describe('create schema', () => {
 describe('createServer', () => {
   it('creates schema and processes every request', () => {
     init();
-    const schema: IApolloModule = {
+    const schema: ApolloModule = {
       schema: '',
       queryText: 'getA: String',
     };
@@ -101,7 +101,7 @@ describe('createServer', () => {
 
   it('processes options request', () => {
     init();
-    const schema: IApolloModule = {
+    const schema: ApolloModule = {
       schema: '',
       queryText: 'getA: String',
       modifyOptions: (req: any, options: any) => { options.A = true; return options; }
@@ -115,12 +115,12 @@ describe('createServer', () => {
 
   it('processes multiple options request', () => {
     init();
-    const schema1: IApolloModule = {
+    const schema1: ApolloModule = {
       schema: '',
       queryText: 'getA: String',
       modifyOptions: (req: any, options: any) => { options.A = true; return options; }
     };
-    const schema2: IApolloModule = {
+    const schema2: ApolloModule = {
       schema: '',
       queryText: 'getB: String',
       modifyOptions: (req: any, options: any) => { options.B = true; return options; }

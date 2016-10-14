@@ -1,11 +1,11 @@
 {
   "name": "apollo-modules",
-  "version": "0.0.5",
+  "version": "1.0.4",
   "description": "Modular system for building apollo schemas",
   "repository": {
     "url": "https://github.com/tomitrescak/apollo-modules"
   },
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "mocha --report lcovonly src/*spec.ts --compilers ts:ts-node/register --bail",
@@ -18,10 +18,11 @@
   "author": "Tomi Trescak",
   "license": "MIT",
   "dependencies": {
-    "babel-core": "^6.13.2",
     "graphql-tools": "^0.7.2"
   },
+  "types": "./dist/index.d.ts",
   "devDependencies": {
+    "babel-core": "^6.13.2",
     "chai": "^3.5.0",
     "coveralls": "^2.11.11",
     "istanbul": "^1.1.0-alpha.1",

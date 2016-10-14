@@ -1,6 +1,6 @@
 import './polyfills';
 
-interface ApolloOptions {
+export interface ApolloOptions {
   schema?: any;
   context?: any; // value to be used as context in resolvers
   rootValue?: any;
@@ -15,18 +15,18 @@ interface ApolloOptions {
   };
 };
 
-interface IApolloOption {
+export interface ApolloOption {
   (req: any, apolloOptions: ApolloOptions): ApolloOptions;
 }
 
-export interface IApolloModule {
+export interface ApolloModule {
   schema: string;
   queries?: Object;
   resolvers?: Object;
   mutations?: Object;
   queryText?: string;
   mutationText?: string;
-  modifyOptions?: IApolloOption;
+  modifyOptions?: ApolloOption;
 }
 
 
@@ -37,10 +37,10 @@ export function init() {
 
 // export function schemas() { return schema; }
 // export function resolvers() { return resolver; }
-export function addModules(apolloDefinitions: IApolloModule[]) {
+export function addModules(apolloDefinitions: ApolloModule[]) {
   let queries = '';
   let mutations = '';
-  let options: IApolloOption[] = [];
+  let options: ApolloOption[] = [];
 
   let schema: any[] = [];
   let resolvers: any = {

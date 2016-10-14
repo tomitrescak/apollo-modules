@@ -10,3 +10,5 @@ node_modules
 coverage
 .vscode
 ./tests
+.nyc_output
+tslint.json

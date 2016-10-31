@@ -111,12 +111,12 @@ export function addModules(apolloDefinitions: ApolloModule[]) {
 export function createServer(apolloOptions?: ApolloOptions) {
   const { schema, resolvers, options } = apolloOptions.modules;
 
-  return function (req?: any) {
+  return async function (req?: any): Promise<any> {
     // process all option modifiers
     if (options.length === 1) {
-      options[0](req, apolloOptions);
+      await options[0](req, apolloOptions);
     } else if (options.length > 1) {
-      options.forEach((o) => o(req, apolloOptions));
+      await Promise.all(options.map(async (o): Promise<any> => await o(req, apolloOptions)));
     }
 
     return apolloOptions;

@@ -112,13 +112,16 @@ export function createServer(apolloOptions?: ApolloOptions) {
   const { schema, resolvers, options } = apolloOptions.modules;
 
   return async function (req?: any): Promise<any> {
+    const cloned = {...apolloOptions};
+    cloned.context = {...cloned.context};
+
     // process all option modifiers
     if (options.length === 1) {
-      await options[0](req, apolloOptions);
+      await options[0](req, cloned);
     } else if (options.length > 1) {
-      await Promise.all(options.map(async (o): Promise<any> => await o(req, apolloOptions)));
+      await Promise.all(options.map(async (o): Promise<any> => await o(req, cloned)));
     }
 
-    return apolloOptions;
+    return cloned;
   };
 }

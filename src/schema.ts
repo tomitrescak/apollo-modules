@@ -9,7 +9,7 @@ export interface ApolloOptions {
   formatParams?: Function; // function applied for each query in a batch to format parameters before passing them to `runQuery`
   formatResponse?: Function; // function applied to each response before returning data to clients
   modules: {
-    schema: any[];
+    schema: string[];
     resolvers: any;
     options: any[];
   };
@@ -42,7 +42,7 @@ export function addModules(apolloDefinitions: ApolloModule[]) {
   let mutations = '';
   let options: ApolloOption[] = [];
 
-  let schema: any[] = [];
+  let schema: string[] = [];
   let resolvers: any = {
   };
 
